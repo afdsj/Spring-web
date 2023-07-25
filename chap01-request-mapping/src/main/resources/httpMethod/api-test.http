@@ -1,0 +1,5 @@
+### modify 요청
+#GET http://localhost:8080/modify
+
+### delete 요청
+GET http://localhost:8080/delete

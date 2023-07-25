@@ -1,0 +1,5 @@
+### 로그인  main 요청
+#GET http://localhost:8080/main
+
+### modelandview 요청하기
+GET http://localhost:8080/modelandView
