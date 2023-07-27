@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <Link rel="stylesheet" type="text/css" th:href="@{/css/common.css}"/>
+    <title>Title</title>
+</head>
+<body>
+    <h1 align="center">기타</h1>
+
+    <h2>th:with</h2>
+    <h3>지역 변수를 지정해서 쓸 수 있다</h3>
+    <th:block th:with="start = ${selectCriteria.startPage}, last = ${selectCriteria.endPage}">
+      <th:block th:each="p : ${#numbers.sequence(start, last)}">
+        <th:block th:if="${selectCriteria.pageNo eq p}"> <!-- eq 비교연산자-->
+          <button th:text="${p}" disabled></button>
+        </th:block>
+        <th:block th:if="${selectCriteria.pageNo ne p}">
+          <button th:text="${p}"></button>
+        </th:block>
+      </th:block>
+    </th:block>
+
+    <h2>Spring EL</h2>
+    <h3>
+      변수 표현식 ${...}은 springEl이라는 스프링에서 제공하는 표현식을 사용할 수 있다
+      (SpringEl은 런타임 시 메서드 호출 및 기본 문자열 템플릿 등의 기능을 제공한다)
+      단순한 변수가 아닌 object, list, map과 같은 객체를 사용하기 위해 활용할 수 있다
+    </h3>
+    <p>Object</p>
+    <ul>
+      <li th:text="${member.name}"></li>
+      <li th:text="${member['age']}"></li>
+      <li th:text="${member.getGender()}"></li> <!--해당 기능을 사용하고자 하는 경우 getGender가 반드시 존재해야 한다-->
+    </ul>
+
+    <p>List</p>
+    <ul>
+      <li th:text="${ memberList[1].name }"></li>
+      <li th:text="${ memberList[1]['age'] }"></li>
+      <li th:text="${ memberList[1].getGender() }"></li>	<!-- 위 두가지 방식은 getter가 필요 없지만 getGender()는 반드시 해당 클래스에 getter가 있어야 한다. -->
+      <li th:text="${ memberList.get(1).getGender() }"></li><!-- get()방식을 사용시에는 뒤에 getter나 필드명 둘 중 아무거나 써도 된다. -->
+      <li th:text="${ memberList.get(1).address }"></li>
+    </ul>
+
+    <p>map</p>
+    <ul>
+      <li th:text="${memberMap['m01'].name}"></li>
+      <li th:text="${memberMap['m01']['age']}"></li>
+      <li th:text="${memberMap['m01'].getGender()}"></li>
+    </ul>
+</body>
+</html>
